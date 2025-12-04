@@ -1,51 +1,142 @@
 // src/styles/components/Footer.styles.ts
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { colors } from '../colors';
 import { spacing } from '../spacing';
-import { commonStyles } from '../common';
+
+const { width } = Dimensions.get('window');
+const isDesktop = width > 768;
 
 export const footerStyles = StyleSheet.create({
   footer: {
+    backgroundColor: colors.agriDark,
+    paddingHorizontal: isDesktop ? spacing.xl * 2 : spacing.lg,
+    paddingTop: spacing.xl,
+    paddingBottom: spacing.lg,
+    borderTopWidth: 4,
+    borderTopColor: colors.agriPrimary,
+  },
+  
+  // Primera fila (4 columnas)
+  topRow: {
+    flexDirection: isDesktop ? 'row' : 'column',
+    justifyContent: 'space-between',
+    marginBottom: spacing.lg,
+    gap: isDesktop ? spacing.lg : spacing.xl,
+  },
+  
+  column: {
+    flex: 1,
+    alignItems: isDesktop ? 'flex-start' : 'center',
+    marginBottom: isDesktop ? 0 : spacing.md,
+  },
+  
+  columnTitle: {
+    fontSize: isDesktop ? 16 : 14,
+    fontWeight: '700',
+    color: colors.white,
+    marginBottom: spacing.md,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  
+  // Redes sociales
+  socialIcons: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    gap: spacing.md,
+    justifyContent: isDesktop ? 'flex-start' : 'center',
+    width: '100%',
+  },
+  
+  socialIcon: {
+    color: colors.white,
+  },
+  
+  // Ubicación
+  locationContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    backgroundColor: colors.surface,
-    borderTopWidth: 1,
-    borderTopColor: colors.border,
-    elevation: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
+    gap: spacing.sm,
   },
-  footerButton: {
+  
+  locationIcon: {
+    color: colors.agriAccent,
+  },
+  
+  locationText: {
+    fontSize: isDesktop ? 14 : 12,
+    color: colors.agriAccent,
+    textDecorationLine: 'underline',
+    fontStyle: 'italic',
+  },
+  
+  // Contacto
+  contactButton: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: spacing.sm,
-    borderRadius: 10,
-    minWidth: 60,
+    backgroundColor: colors.agriPrimary,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+    borderRadius: 25,
+    gap: spacing.sm,
+    ...StyleSheet.absoluteFillObject,
   },
-  activeButton: {
-    backgroundColor: '#f0f8ff', // Color azul claro para el estado activo
-    transform: [{ scale: 1.05 }],
-  },
-  footerIcon: {
-    fontSize: 22,
-    marginBottom: spacing.xs,
-    color: colors.textSecondary,
-  },
-  activeIcon: {
-    color: colors.primary, // Usamos el color primary para íconos activos
-  },
-  footerText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: colors.textSecondary,
-  },
-  activeText: {
-    color: colors.primary, // Usamos el color primary para texto activo
+  
+  contactButtonText: {
+    color: colors.white,
+    fontSize: isDesktop ? 14 : 12,
     fontWeight: '600',
+    letterSpacing: 0.5,
+  },
+  
+  // Enlaces
+  linkText: {
+    fontSize: isDesktop ? 14 : 12,
+    color: colors.agriAccent,
+    textDecorationLine: 'underline',
+  },
+  
+  // Línea divisoria
+  divider: {
+    height: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    marginVertical: spacing.lg,
+    width: '100%',
+  },
+  
+  // Segunda fila (enlaces inferiores)
+  bottomRow: {
+    flexDirection: isDesktop ? 'row' : 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: isDesktop ? spacing.xl * 2 : spacing.lg,
+    marginBottom: spacing.lg,
+  },
+  
+  bottomLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  
+  bottomIcon: {
+    color: colors.agriAccent,
+  },
+  
+  bottomLinkText: {
+    fontSize: isDesktop ? 14 : 12,
+    color: colors.agriAccent,
+    textDecorationLine: 'underline',
+  },
+  
+  // Copyright
+  copyrightContainer: {
+    alignItems: 'center',
+    marginTop: spacing.md,
+  },
+  
+  copyrightText: {
+    fontSize: isDesktop ? 12 : 10,
+    color: 'rgba(255, 255, 255, 0.7)',
+    textAlign: 'center',
   },
 });

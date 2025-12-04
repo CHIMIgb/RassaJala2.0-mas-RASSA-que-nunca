@@ -42,7 +42,7 @@ const Navbar = () => {
 
   return (
     <View style={[navbarStyles.header, { paddingTop: insets.top + 16 }]}>
-      {/* Botón de retroceso + MiruGo */}
+      {/* Botón de retroceso + RASSA JALA */}
       <View style={navbarStyles.leftSection}>
         {canGoBack ? (
           <View style={navbarStyles.leftContent}>
@@ -52,10 +52,10 @@ const Navbar = () => {
             >
               <Text style={navbarStyles.backText}>←</Text>
             </TouchableOpacity>
-            <Text style={navbarStyles.logo}>MiruGo</Text>
+            <Text style={navbarStyles.logo}>RASSA JALA</Text>
           </View>
         ) : (
-          <Text style={navbarStyles.logo}>MiruGo</Text>
+          <Text style={navbarStyles.logo}>RASSA JALA</Text>
         )}
       </View>
 
