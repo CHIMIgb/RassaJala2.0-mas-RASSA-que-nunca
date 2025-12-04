@@ -1,0 +1,22 @@
+// src/styles/colors.ts
+export const colors = {
+  primary: '#3498db',
+  secondary: '#2ecc71',
+  accent: '#e74c3c',
+  background: '#f8f9fa',
+  surface: '#ffffff',
+  textPrimary: '#2c3e50',
+  textSecondary: '#666666',
+  textTertiary: '#333333',
+  border: '#e0e0e0',
+  success: '#27ae60',
+  warning: '#f39c12',
+  error: '#e74c3c',
+  badge: '#e74c3c',
+  white: '#ffffff',
+  lightGray: '#e9ecef',
+  lighterGray: '#f8f9fa',
+  darkGray: '#495057',
+  disabled: '#bdc3c7',
+  removeBg: '#ffebee',
+};
