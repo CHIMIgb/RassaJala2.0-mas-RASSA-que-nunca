@@ -30,7 +30,7 @@ const linking = {
   prefixes: [
     'mirugo://', 
     'http://app.rassajala.com', 
-    'http://192.168.0.106:8081' // El prefijo de tu link de prueba
+    'http://192.168.0.104:8081' // El prefijo de tu link de prueba
   ],
   config: {
     screens: {

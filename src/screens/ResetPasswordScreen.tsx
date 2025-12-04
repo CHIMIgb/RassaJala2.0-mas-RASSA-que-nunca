@@ -1,3 +1,4 @@
+// src/screens/ResetPasswordScreen.tsx
 import React, { useState, useEffect } from 'react';
 import { 
   View, 
@@ -6,11 +7,11 @@ import {
   TouchableOpacity, 
   KeyboardAvoidingView, 
   Platform,
-  // --- MODIFICADO: Ya no importamos Alert, importamos Modal ---
   Modal, 
   ActivityIndicator,
   ScrollView,
-  StyleSheet // Necesario para los estilos del modal
+  Image,
+  ImageBackground
 } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigation';
@@ -49,12 +50,12 @@ const ResetPasswordScreen = () => {
     passwordMatch: ''
   });
 
-  // --- NUEVO: Estado para el Modal ---
+  // Estado para el Modal
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalInfo, setModalInfo] = useState({
     title: '',
     message: '',
-    onConfirm: () => {}, // Callback para ejecutar al presionar OK
+    onConfirm: () => {},
   });
 
   // Función para mostrar el modal
@@ -62,7 +63,6 @@ const ResetPasswordScreen = () => {
     setModalInfo({ title, message, onConfirm });
     setIsModalVisible(true);
   };
-  // --- FIN DE NUEVO ESTADO ---
 
   // Efecto para capturar el token
   useEffect(() => {
@@ -77,7 +77,6 @@ const ResetPasswordScreen = () => {
         if (storedToken) {
           setToken(storedToken);
         } else {
-          // --- MODIFICADO: Usar el modal personalizado ---
           showModal(
             'Token no encontrado', 
             'No se encontró un token válido. Por favor, solicita un nuevo enlace de recuperación.',
@@ -106,7 +105,6 @@ const ResetPasswordScreen = () => {
   // Efecto para manejar errores de la API
   useEffect(() => {
     if (resetError) {
-      // --- MODIFICADO: Usar el modal personalizado ---
       showModal('Error', resetError);
     }
   }, [resetError]);
@@ -125,16 +123,20 @@ const ResetPasswordScreen = () => {
     !validationErrors.passwordLength &&
     !validationErrors.passwordMatch;
 
+  // Validaciones para mostrar checks
+  const hasMinLength = password.length >= 8;
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecialChar = /[.#@$%]/.test(password);
+
   // Manejador del botón
   const handleResetPassword = async () => {
     if (!token) {
-      // --- MODIFICADO: Usar el modal personalizado ---
       showModal('Error', 'No hay un token válido. Solicita un nuevo enlace.');
       return;
     }
 
     if (!isFormValid) {
-      // --- MODIFICADO: Usar el modal personalizado ---
       showModal('Formulario inválido', 'Por favor corrige los errores en el formulario.');
       return;
     }
@@ -147,7 +149,6 @@ const ResetPasswordScreen = () => {
     }, token);
 
     if (result.success) {
-      // --- MODIFICADO: Usar el modal personalizado ---
       showModal(
         'Éxito', 
         result.message,
@@ -159,10 +160,10 @@ const ResetPasswordScreen = () => {
     }
   };
 
-  // --- NUEVO: Función para cerrar el modal ---
+  // Función para cerrar el modal
   const handleModalClose = () => {
     setIsModalVisible(false);
-    modalInfo.onConfirm(); // Ejecuta la acción (ej. redireccionar)
+    modalInfo.onConfirm();
   };
 
   return (
@@ -170,7 +171,17 @@ const ResetPasswordScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={resetPasswordStyles.container}
     >
-      {/* --- NUEVO: Añadir el componente Modal --- */}
+      {/* Imagen de fondo con transparencia */}
+      <ImageBackground
+        source={require('../../assets/imagenes/Rassa-Jala.png')} 
+        style={resetPasswordStyles.backgroundImage}
+        resizeMode="cover"
+      />
+      
+      {/* Capa verde semi-transparente */}
+      <View style={resetPasswordStyles.overlay} />
+
+      {/* Modal personalizado */}
       <Modal
         transparent={true}
         animationType="fade"
@@ -192,90 +203,174 @@ const ResetPasswordScreen = () => {
       </Modal>
 
       <ScrollView contentContainerStyle={resetPasswordStyles.innerContainer}>
-        {/* ... (El resto de tu JSX se mantiene igual) ... */}
-        <Text style={resetPasswordStyles.title}>Restablecer Contraseña</Text>
-        
-        <View style={resetPasswordStyles.form}>
-          <Text style={resetPasswordStyles.instructions}>
-            Ingresa tu nueva contraseña. Asegúrate de que coincidan.
-          </Text>
-          
-                    {/* --- MODIFICADO: Campo de nueva contraseña con icono de ojo --- */}
-          <View style={resetPasswordStyles.passwordContainer}>
-            <TextInput
-              style={[
-                resetPasswordStyles.passwordInput, 
-                resetLoading && resetPasswordStyles.inputDisabled,
-                validationErrors.passwordLength ? resetPasswordStyles.inputError : null
-              ]}
-              placeholder="Nueva contraseña (mín. 6 caracteres)"
-              placeholderTextColor="#999"
-              secureTextEntry={!showPassword}
-              value={password}
-              onChangeText={setPassword}
-              editable={!resetLoading}
+        <View style={resetPasswordStyles.card}>
+          {/* Logo dentro del card */}
+          <View style={resetPasswordStyles.logoContainer}>
+            <Image 
+              source={require('../../assets/imagenes/Rassa-Jala.png')} 
+              style={resetPasswordStyles.logo}
+              resizeMode="contain"
             />
+          </View>
+
+          <Text style={resetPasswordStyles.title}>Restablecer contraseña</Text>
+          
+          <View style={resetPasswordStyles.form}>
+            <Text style={resetPasswordStyles.instructions}>
+              Escribe tu nueva contraseña
+            </Text>
+            
+            {/* Campo de nueva contraseña con icono de ojo */}
+            <View style={resetPasswordStyles.passwordContainer}>
+              <TextInput
+                style={[
+                  resetPasswordStyles.passwordInput, 
+                  resetLoading && resetPasswordStyles.inputDisabled,
+                  validationErrors.passwordLength ? resetPasswordStyles.inputError : null
+                ]}
+                placeholder="Ejemplo: TILINe123."
+                placeholderTextColor="#A5D6A7"
+                secureTextEntry={!showPassword}
+                value={password}
+                onChangeText={setPassword}
+                editable={!resetLoading}
+              />
+              <TouchableOpacity 
+                style={resetPasswordStyles.eyeIcon}
+                onPress={toggleShowPassword}
+                disabled={resetLoading}
+              >
+                <Icon 
+                  name={showPassword ? "visibility-off" : "visibility"} 
+                  size={24} 
+                  color="#5D7A2E" 
+                />
+              </TouchableOpacity>
+            </View>
+            {validationErrors.passwordLength ? (
+              <Text style={resetPasswordStyles.errorText}>{validationErrors.passwordLength}</Text>
+            ) : null}
+            
+            {/* Campo de confirmar contraseña */}
+            <Text style={resetPasswordStyles.instructions}>
+              Confirma tu nueva contraseña
+            </Text>
+            <View style={resetPasswordStyles.passwordContainer}>
+              <TextInput
+                style={[
+                  resetPasswordStyles.passwordInput, 
+                  resetLoading && resetPasswordStyles.inputDisabled,
+                  validationErrors.passwordMatch ? resetPasswordStyles.inputError : null
+                ]}
+                placeholder="Ejemplo: TILINe123."
+                placeholderTextColor="#A5D6A7"
+                secureTextEntry={!showConfirmPassword}
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                editable={!resetLoading}
+              />
+              <TouchableOpacity 
+                style={resetPasswordStyles.eyeIcon}
+                onPress={toggleShowConfirmPassword}
+                disabled={resetLoading}
+              >
+                <Icon 
+                  name={showConfirmPassword ? "visibility-off" : "visibility"} 
+                  size={24} 
+                  color="#5D7A2E" 
+                />
+              </TouchableOpacity>
+            </View>
+            {validationErrors.passwordMatch ? (
+              <Text style={resetPasswordStyles.errorText}>{validationErrors.passwordMatch}</Text>
+            ) : null}
+
+            {/* Lista de validaciones */}
+            <View style={resetPasswordStyles.validationList}>
+              <View style={resetPasswordStyles.validationItem}>
+                <Icon 
+                  name={hasMinLength ? "check-circle" : "cancel"} 
+                  size={20} 
+                  color={hasMinLength ? "#27ae60" : "#bdc3c7"}
+                  style={resetPasswordStyles.validationIcon}
+                />
+                <Text style={[
+                  resetPasswordStyles.validationText,
+                  hasMinLength && resetPasswordStyles.validationTextValid
+                ]}>
+                  Contiene al menos 8 caracteres: abc
+                </Text>
+              </View>
+
+              <View style={resetPasswordStyles.validationItem}>
+                <Icon 
+                  name={hasUpperCase ? "check-circle" : "cancel"} 
+                  size={20} 
+                  color={hasUpperCase ? "#27ae60" : "#bdc3c7"}
+                  style={resetPasswordStyles.validationIcon}
+                />
+                <Text style={[
+                  resetPasswordStyles.validationText,
+                  hasUpperCase && resetPasswordStyles.validationTextValid
+                ]}>
+                  Contiene al menos una letra mayúscula: ABC
+                </Text>
+              </View>
+
+              <View style={resetPasswordStyles.validationItem}>
+                <Icon 
+                  name={hasNumber ? "check-circle" : "cancel"} 
+                  size={20} 
+                  color={hasNumber ? "#27ae60" : "#bdc3c7"}
+                  style={resetPasswordStyles.validationIcon}
+                />
+                <Text style={[
+                  resetPasswordStyles.validationText,
+                  hasNumber && resetPasswordStyles.validationTextValid
+                ]}>
+                  Contiene al menos un caracter numérico: 123
+                </Text>
+              </View>
+
+              <View style={resetPasswordStyles.validationItem}>
+                <Icon 
+                  name={hasSpecialChar ? "check-circle" : "cancel"} 
+                  size={20} 
+                  color={hasSpecialChar ? "#27ae60" : "#bdc3c7"}
+                  style={resetPasswordStyles.validationIcon}
+                />
+                <Text style={[
+                  resetPasswordStyles.validationText,
+                  hasSpecialChar && resetPasswordStyles.validationTextValid
+                ]}>
+                  Contiene al menos un caracter especial: .#@$%
+                </Text>
+              </View>
+            </View>
+            
             <TouchableOpacity 
-              style={resetPasswordStyles.eyeIcon}
-              onPress={toggleShowPassword}
+              style={[
+                resetPasswordStyles.resetButton,
+                (resetLoading || !isFormValid) && resetPasswordStyles.resetButtonDisabled
+              ]}
+              onPress={handleResetPassword}
+              disabled={resetLoading || !isFormValid}
+            >
+              {resetLoading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={resetPasswordStyles.resetButtonText}>Aceptar</Text>
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={resetPasswordStyles.backButton}
+              onPress={() => navigation.navigate('Login')}
               disabled={resetLoading}
             >
-              <Icon 
-                name={showPassword ? "visibility-off" : "visibility"} 
-                size={24} 
-                color="#999" 
-              />
+              <Text style={resetPasswordStyles.backButtonText}>Volver al login</Text>
             </TouchableOpacity>
           </View>
-          {validationErrors.passwordLength ? (
-            <Text style={resetPasswordStyles.errorText}>{validationErrors.passwordLength}</Text>
-          ) : null}
-          
-          {/* --- MODIFICADO: Campo de confirmar contraseña con icono de ojo --- */}
-          <View style={resetPasswordStyles.passwordContainer}>
-            <TextInput
-              style={[
-                resetPasswordStyles.passwordInput, 
-                resetLoading && resetPasswordStyles.inputDisabled,
-                validationErrors.passwordMatch ? resetPasswordStyles.inputError : null
-              ]}
-              placeholder="Confirmar nueva contraseña"
-              placeholderTextColor="#999"
-              secureTextEntry={!showConfirmPassword}
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              editable={!resetLoading}
-            />
-            <TouchableOpacity 
-              style={resetPasswordStyles.eyeIcon}
-              onPress={toggleShowConfirmPassword}
-              disabled={resetLoading}
-            >
-              <Icon 
-                name={showConfirmPassword ? "visibility-off" : "visibility"} 
-                size={24} 
-                color="#999" 
-              />
-            </TouchableOpacity>
-          </View>
-          {validationErrors.passwordMatch ? (
-            <Text style={resetPasswordStyles.errorText}>{validationErrors.passwordMatch}</Text>
-          ) : null}
-          
-          <TouchableOpacity 
-            style={[
-              resetPasswordStyles.resetButton,
-              (resetLoading || !isFormValid) && resetPasswordStyles.resetButtonDisabled
-            ]}
-            onPress={handleResetPassword}
-            disabled={resetLoading || !isFormValid}
-          >
-            {resetLoading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
-              <Text style={resetPasswordStyles.resetButtonText}>Cambiar Contraseña</Text>
-            )}
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

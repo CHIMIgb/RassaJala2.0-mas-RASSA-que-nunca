@@ -9,7 +9,9 @@ import {
   Platform, 
   ScrollView, 
   Alert,
-  ActivityIndicator 
+  ActivityIndicator,
+  Image,
+  ImageBackground
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { registerStyles } from '../styles/screens/RegsiterScreen.styles';
@@ -200,42 +202,79 @@ const RegisterScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={registerStyles.container}
     >
+      {/* Imagen de fondo con transparencia */}
+      <ImageBackground
+        source={require('../../assets/imagenes/Rassa-Jala.png')} 
+        style={registerStyles.backgroundImage}
+        resizeMode="cover"
+      />
+      
+      {/* Capa verde semi-transparente */}
+      <View style={registerStyles.overlay} />
+
       <ScrollView contentContainerStyle={registerStyles.scrollContainer}>
         <View style={registerStyles.innerContainer}>
-          <Text style={registerStyles.title}>Crear Cuenta</Text>
+          {/* Logo dentro del card */}
+          <View style={registerStyles.logoContainer}>
+            <Image 
+              source={require('../../assets/imagenes/Rassa-Jala.png')} 
+              style={registerStyles.logo}
+              resizeMode="contain"
+            />
+          </View>
+
+          <Text style={registerStyles.title}>Registrar Usuario</Text>
           
           <View style={registerStyles.form}>
-            <TextInput
-              style={registerStyles.input}
-              placeholder="Nombre(s)"
-              placeholderTextColor="#999"
-              value={formData.nombre}
-              onChangeText={(text) => handleInputChange('nombre', text)}
-              editable={!loading}
-            />
+            {/* Fila 1: Nombre, Apellido Paterno, Apellido Materno */}
+            <View style={registerStyles.inputRow}>
+              <View style={registerStyles.inputHalf}>
+                <Text style={registerStyles.inputLabel}>
+                  Nombre <Text style={registerStyles.inputLabelRequired}>*</Text>
+                </Text>
+                <TextInput
+                  style={registerStyles.input}
+                  placeholder="Juan"
+                  placeholderTextColor="#A5D6A7"
+                  value={formData.nombre}
+                  onChangeText={(text) => handleInputChange('nombre', text)}
+                  editable={!loading}
+                />
+              </View>
+            </View>
 
-            <TextInput
-              style={registerStyles.input}
-              placeholder="Apellido Paterno"
-              placeholderTextColor="#999"
-              value={formData.apellido_paterno}
-              onChangeText={(text) => handleInputChange('apellido_paterno', text)}
-              editable={!loading}
-            />
+            <View style={registerStyles.inputRow}>
+              <View style={registerStyles.inputHalf}>
+                <Text style={registerStyles.inputLabel}>Apellido Paterno</Text>
+                <TextInput
+                  style={registerStyles.input}
+                  placeholder="Pérez"
+                  placeholderTextColor="#A5D6A7"
+                  value={formData.apellido_paterno}
+                  onChangeText={(text) => handleInputChange('apellido_paterno', text)}
+                  editable={!loading}
+                />
+              </View>
 
+              <View style={registerStyles.inputHalf}>
+                <Text style={registerStyles.inputLabel}>Apellido Materno</Text>
+                <TextInput
+                  style={registerStyles.input}
+                  placeholder="López"
+                  placeholderTextColor="#A5D6A7"
+                  value={formData.apellido_materno}
+                  onChangeText={(text) => handleInputChange('apellido_materno', text)}
+                  editable={!loading}
+                />
+              </View>
+            </View>
+
+            {/* Correo */}
+            <Text style={registerStyles.inputLabel}>Correo</Text>
             <TextInput
               style={registerStyles.input}
-              placeholder="Apellido Materno"
-              placeholderTextColor="#999"
-              value={formData.apellido_materno}
-              onChangeText={(text) => handleInputChange('apellido_materno', text)}
-              editable={!loading}
-            />
-            
-            <TextInput
-              style={registerStyles.input}
-              placeholder="Correo electrónico"
-              placeholderTextColor="#999"
+              placeholder="juan1@gmail.com"
+              placeholderTextColor="#A5D6A7"
               autoCapitalize="none"
               keyboardType="email-address"
               value={formData.correo}
@@ -243,7 +282,62 @@ const RegisterScreen = () => {
               editable={!loading}
             />
 
-            {/* Selector para sexo */}
+            {/* Usuario y Contraseña en la misma fila */}
+            <View style={registerStyles.inputRow}>
+              <View style={registerStyles.inputHalf}>
+                <Text style={registerStyles.inputLabel}>Usuario</Text>
+                <TextInput
+                  style={registerStyles.input}
+                  placeholder="Juan23"
+                  placeholderTextColor="#A5D6A7"
+                  autoCapitalize="none"
+                  value={formData.nombre_usuario}
+                  onChangeText={(text) => handleInputChange('nombre_usuario', text)}
+                  editable={!loading}
+                />
+              </View>
+
+              <View style={registerStyles.inputHalf}>
+                <Text style={registerStyles.inputLabel}>Contraseña</Text>
+                <TextInput
+                  style={[
+                    registerStyles.input,
+                    touchedFields.password && validationErrors.passwordLength && registerStyles.inputError
+                  ]}
+                  placeholder="345Juan23"
+                  placeholderTextColor="#A5D6A7"
+                  secureTextEntry
+                  value={formData.password}
+                  onChangeText={(text) => handleInputChange('password', text)}
+                  onBlur={() => handleFieldBlur('password')}
+                  editable={!loading}
+                />
+                {touchedFields.password && validationErrors.passwordLength ? (
+                  <Text style={registerStyles.errorTextSmall}>{validationErrors.passwordLength}</Text>
+                ) : null}
+              </View>
+            </View>
+
+            {/* Confirmar Contraseña */}
+            <Text style={registerStyles.inputLabel}>Confirmar Contraseña</Text>
+            <TextInput
+              style={[
+                registerStyles.input,
+                touchedFields.confirmPassword && validationErrors.passwordMatch && registerStyles.inputError
+              ]}
+              placeholder="345Juan23"
+              placeholderTextColor="#A5D6A7"
+              secureTextEntry
+              value={formData.confirmPassword}
+              onChangeText={(text) => handleInputChange('confirmPassword', text)}
+              onBlur={() => handleFieldBlur('confirmPassword')}
+              editable={!loading}
+            />
+            {touchedFields.confirmPassword && validationErrors.passwordMatch ? (
+              <Text style={registerStyles.errorTextSmall}>{validationErrors.passwordMatch}</Text>
+            ) : null}
+
+            {/* Selector de Sexo */}
             <View style={registerStyles.selectContainer}>
               <Text style={registerStyles.selectLabel}>Sexo *</Text>
               <View style={registerStyles.selectOptions}>
@@ -289,50 +383,6 @@ const RegisterScreen = () => {
               ) : null}
             </View>
             
-            <TextInput
-              style={registerStyles.input}
-              placeholder="Nombre de usuario"
-              placeholderTextColor="#999"
-              autoCapitalize="none"
-              value={formData.nombre_usuario}
-              onChangeText={(text) => handleInputChange('nombre_usuario', text)}
-              editable={!loading}
-            />
-            
-            <TextInput
-              style={[
-                registerStyles.input,
-                touchedFields.password && validationErrors.passwordLength && registerStyles.inputError
-              ]}
-              placeholder="Contraseña (mínimo 6 caracteres)"
-              placeholderTextColor="#999"
-              secureTextEntry
-              value={formData.password}
-              onChangeText={(text) => handleInputChange('password', text)}
-              onBlur={() => handleFieldBlur('password')}
-              editable={!loading}
-            />
-            {touchedFields.password && validationErrors.passwordLength ? (
-              <Text style={registerStyles.errorTextSmall}>{validationErrors.passwordLength}</Text>
-            ) : null}
-            
-            <TextInput
-              style={[
-                registerStyles.input,
-                touchedFields.confirmPassword && validationErrors.passwordMatch && registerStyles.inputError
-              ]}
-              placeholder="Confirmar contraseña"
-              placeholderTextColor="#999"
-              secureTextEntry
-              value={formData.confirmPassword}
-              onChangeText={(text) => handleInputChange('confirmPassword', text)}
-              onBlur={() => handleFieldBlur('confirmPassword')}
-              editable={!loading}
-            />
-            {touchedFields.confirmPassword && validationErrors.passwordMatch ? (
-              <Text style={registerStyles.errorTextSmall}>{validationErrors.passwordMatch}</Text>
-            ) : null}
-            
             <TouchableOpacity 
               style={[
                 registerStyles.registerButton, 
@@ -345,7 +395,7 @@ const RegisterScreen = () => {
                 <ActivityIndicator color="#fff" />
               ) : (
                 <Text style={registerStyles.registerButtonText}>
-                  Crear cuenta
+                  Guardar
                 </Text>
               )}
             </TouchableOpacity>

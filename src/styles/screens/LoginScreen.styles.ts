@@ -1,136 +1,198 @@
 // src/styles/screens/LoginScreen.styles.ts
-import { StyleSheet } from 'react-native';
-import { colors } from '../colors';
-import { spacing } from '../spacing';
-import { commonStyles } from '../common';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 export const loginStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: '#82B421', // Color principal verde agrícola
+  },
+  backgroundImage: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    opacity: 0.15, // Imagen con transparencia
+  },
+  overlay: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(130, 180, 33, 0.7)', // Capa verde semi-transparente
   },
   scrollContainer: {
     flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 40,
   },
   innerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: spacing.lg,
+    width: width * 0.9,
+    maxWidth: 450,
+    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+    borderRadius: 24,
+    padding: 32,
+    alignItems: 'center',
+    // Sombra suave
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 10,
   },
-  title: {
-    fontSize: 28,
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 32,
+  },
+  logo: {
+    width: 140,
+    height: 140,
+    marginBottom: 16,
+    borderRadius: 70,
+    backgroundColor: '#fff',
+    // Sombra para el logo
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  appName: {
+    fontSize: 36,
     fontWeight: 'bold',
-    color: colors.textPrimary,
-    textAlign: 'center',
-    marginBottom: spacing.xl,
+    color: '#fff',
+    letterSpacing: 1,
+    textShadowColor: 'rgba(0, 0, 0, 0.4)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 6,
   },
   form: {
-    backgroundColor: colors.surface,
-    padding: spacing.lg,
-    borderRadius: 10,
-    ...commonStyles.shadow,
+    width: '100%',
+  },
+  inputLabel: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#2C3E29', // Verde oscuro para texto
+    marginBottom: 10,
+    marginTop: 4,
   },
   input: {
-    borderWidth: 1,
-    borderColor: colors.border,
-    padding: spacing.md,
-    borderRadius: 8,
-    marginBottom: spacing.md,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#C5E1A5', // Borde verde claro
+    borderRadius: 12,
+    padding: 16,
     fontSize: 16,
-    color: colors.textPrimary,
+    color: '#2C3E29',
+    marginBottom: 20,
+    // Sombra muy suave
+    shadowColor: '#82B421',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
-  // --- NUEVOS ESTILOS PARA EL CAMPO DE CONTRASEÑA ---
   passwordContainer: {
     position: 'relative',
-    marginBottom: spacing.md,
+    marginBottom: 12,
   },
   passwordInput: {
-    borderWidth: 1,
-    borderColor: colors.border,
-    padding: spacing.md,
-    borderRadius: 8,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#C5E1A5',
+    borderRadius: 12,
+    padding: 16,
+    paddingRight: 50,
     fontSize: 16,
-    color: colors.textPrimary,
-    paddingRight: 50, // Espacio para el icono
+    color: '#2C3E29',
+    // Sombra muy suave
+    shadowColor: '#82B421',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   eyeIcon: {
     position: 'absolute',
-    right: 15,
-    top: 12,
+    right: 16,
+    top: 16,
     padding: 4,
   },
-  // --- FIN DE NUEVOS ESTILOS ---
-  loginButton: {
-    backgroundColor: colors.primary,
-    padding: spacing.md,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: spacing.sm,
-    ...commonStyles.shadow,
-  },
-  loginButtonText: {
-    color: colors.white,
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
   forgotPasswordButton: {
-    alignItems: 'center',
-    marginBottom: spacing.lg,
+    alignItems: 'flex-end',
+    marginBottom: 24,
   },
   forgotPasswordText: {
-    color: colors.primary,
+    color: '#5D7A2E', // Verde medio
     fontSize: 14,
+    fontWeight: '600',
+  },
+  loginButton: {
+    backgroundColor: '#6A951B', // Verde oscuro para el botón
+    borderRadius: 12,
+    padding: 18,
+    alignItems: 'center',
+    marginBottom: 20,
+    // Sombra para dar profundidad
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  loginButtonDisabled: {
+    backgroundColor: '#bdc3c7',
+    opacity: 0.6,
+  },
+  loginButtonText: {
+    color: '#fff',
+    fontSize: 17,
+    fontWeight: 'bold',
+    letterSpacing: 0.8,
   },
   separator: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: spacing.lg,
+    marginVertical: 24,
   },
   separatorLine: {
     flex: 1,
     height: 1,
-    backgroundColor: colors.border,
+    backgroundColor: '#C5E1A5',
   },
   separatorText: {
-    marginHorizontal: spacing.sm,
-    color: colors.textSecondary,
+    marginHorizontal: 16,
+    color: '#5D7A2E',
+    fontSize: 14,
+    fontWeight: '600',
   },
   createAccountButton: {
     alignItems: 'center',
-    marginBottom: spacing.md,
+    marginBottom: 8,
   },
   createAccountText: {
-    color: colors.textSecondary,
+    color: '#495057',
     fontSize: 14,
   },
   createAccountLink: {
-    color: colors.primary,
+    color: '#3498db', // Azul para el enlace de registro
     fontWeight: 'bold',
   },
   backButton: {
-    padding: spacing.md,
-    borderRadius: 8,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: colors.border,
+    padding: 12,
   },
   backButtonText: {
-    color: colors.textSecondary,
-    fontSize: 16,
+    color: '#5D7A2E',
+    fontSize: 14,
+    fontWeight: '500',
   },
   errorText: {
-    color: colors.error,
-    fontSize: 14,
-    textAlign: 'center',
-    marginBottom: spacing.md,
-    backgroundColor: 'rgba(255, 56, 96, 0.1)',
-    padding: spacing.sm,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: colors.error,
-  },
-  loginButtonDisabled: {
-    backgroundColor: colors.disabled,
-    borderColor: colors.border,
+    color: '#e74c3c',
+    fontSize: 13,
+    marginTop: -12,
+    marginBottom: 16,
+    paddingLeft: 4,
+    fontWeight: '500',
   },
 });

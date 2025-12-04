@@ -8,14 +8,16 @@ import {
   KeyboardAvoidingView, 
   Platform, 
   ScrollView, 
-  Alert 
+  Alert,
+  Image,
+  ImageBackground
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import { loginStyles } from '../styles/screens/LoginScreen.styles';
 import { useAuthHook } from '../hooks/auth/useAuthHook';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // Asegúrate de tener instalado este paquete
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -28,7 +30,6 @@ const LoginScreen = () => {
     password: ''
   });
   
-  // --- NUEVO: Estado para mostrar/ocultar contraseña ---
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -46,7 +47,6 @@ const LoginScreen = () => {
     }));
   };
 
-  // --- NUEVO: Función para alternar visibilidad de contraseña ---
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -90,27 +90,46 @@ const LoginScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={loginStyles.container}
     >
+      {/* Imagen de fondo con transparencia */}
+      <ImageBackground
+        source={require('../../assets/imagenes/Rassa-Jala.png')} 
+        style={loginStyles.backgroundImage}
+        resizeMode="cover"
+      />
+      
+      {/* Capa verde semi-transparente sobre la imagen */}
+      <View style={loginStyles.overlay} />
+
       <ScrollView contentContainerStyle={loginStyles.scrollContainer}>
+        {/* Logo y nombre de la app en la parte superior */}
+        <View style={loginStyles.logoContainer}>
+          <Image 
+            source={require('../../assets/imagenes/Rassa-Jala.png')} 
+            style={loginStyles.logo}
+            resizeMode="contain"
+          />
+          <Text style={loginStyles.appName}>RassaJala</Text>
+        </View>
+
         <View style={loginStyles.innerContainer}>
-          <Text style={loginStyles.title}>Iniciar Sesión</Text>
-          
           <View style={loginStyles.form}>
+            <Text style={loginStyles.inputLabel}>Ingresa tu usuario</Text>
             <TextInput
               style={loginStyles.input}
-              placeholder="Nombre de usuario"
-              placeholderTextColor="#999"
+              placeholder="Ejemplo: Marco"
+              placeholderTextColor="#A5D6A7"
               autoCapitalize="none"
               value={credentials.user}
               onChangeText={(value) => handleInputChange('user', value)}
               editable={!loading}
             />
             
-            {/* --- MODIFICADO: Campo de contraseña con icono de ojo --- */}
+            <Text style={loginStyles.inputLabel}>Ingresa tu contraseña</Text>
             <View style={loginStyles.passwordContainer}>
               <TextInput
                 style={loginStyles.passwordInput}
-                placeholder="Contraseña"
-                placeholderTextColor="#999"
+                placeholder="Ejemplo: Marco123"
+                placeholderTextColor="#A5D6A7"
                 secureTextEntry={!showPassword}
                 value={credentials.password}
                 onChangeText={(value) => handleInputChange('password', value)}
@@ -124,7 +143,7 @@ const LoginScreen = () => {
                 <Icon 
                   name={showPassword ? "visibility-off" : "visibility"} 
                   size={24} 
-                  color="#999" 
+                  color="#5D7A2E" 
                 />
               </TouchableOpacity>
             </View>
@@ -136,6 +155,16 @@ const LoginScreen = () => {
             )}
             
             <TouchableOpacity 
+              style={loginStyles.forgotPasswordButton}
+              onPress={handleForgotPassword}
+              disabled={loading}
+            >
+              <Text style={loginStyles.forgotPasswordText}>
+                ¿Olvido su contraseña?
+              </Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
               style={[
                 loginStyles.loginButton,
                 loading && loginStyles.loginButtonDisabled
@@ -144,17 +173,7 @@ const LoginScreen = () => {
               disabled={loading}
             >
               <Text style={loginStyles.loginButtonText}>
-                {loading ? 'Cargando...' : 'Ingresar'}
-              </Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity 
-              style={loginStyles.forgotPasswordButton}
-              onPress={handleForgotPassword}
-              disabled={loading}
-            >
-              <Text style={loginStyles.forgotPasswordText}>
-                ¿Olvidaste tu contraseña?
+                {loading ? 'Cargando...' : 'Entrar'}
               </Text>
             </TouchableOpacity>
             
@@ -170,16 +189,8 @@ const LoginScreen = () => {
               disabled={loading}
             >
               <Text style={loginStyles.createAccountText}>
-                ¿No tienes una cuenta? <Text style={loginStyles.createAccountLink}>Crea una</Text>
+                ¿No tienes una cuenta? <Text style={loginStyles.createAccountLink}>Regístrate aquí</Text>
               </Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity 
-              style={loginStyles.backButton}
-              onPress={() => navigation.goBack()}
-              disabled={loading}
-            >
-              <Text style={loginStyles.backButtonText}>Volver al inicio</Text>
             </TouchableOpacity>
           </View>
         </View>
