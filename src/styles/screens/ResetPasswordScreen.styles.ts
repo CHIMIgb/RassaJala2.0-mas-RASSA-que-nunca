@@ -1,139 +1,223 @@
-import { StyleSheet, Dimensions } from 'react-native'; // Importar Dimensions
-import { colors } from '../colors';
-import { spacing } from '../spacing';
-import { commonStyles } from '../common';
+// src/styles/screens/ResetPasswordScreen.styles.ts
+import { StyleSheet, Dimensions } from 'react-native';
 
-// Obtener el ancho de la pantalla para el modal
 const { width } = Dimensions.get('window');
 
 export const resetPasswordStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: '#82B421', // Color principal verde agrícola
   },
-  // ... (tus estilos existentes: innerContainer, title, instructions, etc.)
+  backgroundImage: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    opacity: 0.15,
+  },
+  overlay: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(130, 180, 33, 0.7)',
+  },
   innerContainer: {
     flexGrow: 1,
     justifyContent: 'center',
-    padding: spacing.lg,
+    alignItems: 'center',
+    paddingVertical: 40,
+    paddingHorizontal: 20,
+  },
+  card: {
+    width: width * 0.9,
+    maxWidth: 450,
+    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+    borderRadius: 24,
+    padding: 32,
+    paddingTop: 70,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 10,
+  },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: -60,
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    marginBottom: 12,
+    borderRadius: 50,
+    backgroundColor: '#fff',
+    borderWidth: 4,
+    borderColor: '#82B421',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.25,
+    shadowRadius: 10,
+    elevation: 8,
   },
   title: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: 'bold',
-    color: colors.textPrimary,
+    color: '#2C3E29', // Negro/verde oscuro
+    marginBottom: 16,
     textAlign: 'center',
-    marginBottom: spacing.lg,
   },
   instructions: {
-    textAlign: 'center',
-    color: colors.textSecondary,
-    marginBottom: spacing.lg,
     fontSize: 14,
+    color: '#495057', // Gris oscuro para subtítulos
+    textAlign: 'center',
+    marginBottom: 24,
     lineHeight: 20,
   },
   form: {
-    backgroundColor: colors.surface,
-    padding: spacing.lg,
-    borderRadius: 10,
-    ...commonStyles.shadow,
+    width: '100%',
   },
-  input: {
-    borderWidth: 1,
-    borderColor: colors.border,
-    padding: spacing.md,
-    borderRadius: 8,
-    marginBottom: spacing.md,
+  passwordContainer: {
+    position: 'relative',
+    marginBottom: 16,
+  },
+  passwordInput: {
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#C5E1A5',
+    borderRadius: 12,
+    padding: 16,
+    paddingRight: 50,
     fontSize: 16,
-    color: colors.textPrimary,
+    color: '#2C3E29',
+    shadowColor: '#82B421',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  eyeIcon: {
+    position: 'absolute',
+    right: 16,
+    top: 16,
+    padding: 4,
   },
   inputDisabled: {
-    backgroundColor: '#f0f0f0',
-    color: '#a0a0a0',
+    backgroundColor: '#f5f5f5',
+    opacity: 0.6,
   },
   inputError: {
-    borderColor: 'red',
+    borderColor: '#e74c3c',
+    borderWidth: 2,
   },
   errorText: {
-    color: 'red',
+    color: '#e74c3c',
     fontSize: 12,
-    marginBottom: spacing.md,
-    marginTop: -spacing.sm,
+    marginTop: -12,
+    marginBottom: 12,
+    paddingLeft: 4,
+  },
+  validationList: {
+    marginTop: 16,
+    marginBottom: 20,
+  },
+  validationItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  validationIcon: {
+    marginRight: 8,
+  },
+  validationText: {
+    fontSize: 13,
+    color: '#495057',
+  },
+  validationTextValid: {
+    color: '#27ae60',
   },
   resetButton: {
-    backgroundColor: colors.primary,
-    padding: spacing.md,
-    borderRadius: 8,
+    backgroundColor: '#6A951B',
+    borderRadius: 12,
+    padding: 18,
     alignItems: 'center',
-    marginBottom: spacing.md,
-    ...commonStyles.shadow,
+    marginTop: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
   },
   resetButtonDisabled: {
-    backgroundColor: colors.primary,
+    backgroundColor: '#bdc3c7',
     opacity: 0.6,
   },
   resetButtonText: {
-    color: colors.white,
+    color: '#fff',
+    fontSize: 17,
     fontWeight: 'bold',
-    fontSize: 16,
+    letterSpacing: 0.8,
   },
-  
-  // --- AÑADIR TODOS ESTOS ESTILOS PARA EL MODAL ---
+  backButton: {
+    alignItems: 'center',
+    padding: 12,
+    marginTop: 12,
+  },
+  backButtonText: {
+    color: '#5D7A2E',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  // Estilos del Modal
   modalBackdrop: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semi-transparente
   },
   modalContainer: {
-    width: width * 0.9, // 90% del ancho de la pantalla
-    maxWidth: 400, // Un ancho máximo para web
-    backgroundColor: colors.surface, // Fondo blanco (o el de tu app)
-    borderRadius: 10,
-    padding: spacing.lg,
+    width: width * 0.85,
+    maxWidth: 400,
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 24,
     alignItems: 'center',
-    ...commonStyles.shadow, // Sombra
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 10,
   },
   modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: colors.textPrimary,
-    marginBottom: spacing.md,
+    color: '#2C3E29',
+    marginBottom: 12,
+    textAlign: 'center',
   },
   modalMessage: {
-    fontSize: 16,
-    color: colors.textSecondary,
+    fontSize: 15,
+    color: '#495057',
     textAlign: 'center',
-    marginBottom: spacing.lg,
+    marginBottom: 20,
+    lineHeight: 22,
   },
   modalButton: {
-    backgroundColor: colors.primary,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.xl,
-    borderRadius: 8,
-    ...commonStyles.shadow,
+    backgroundColor: '#6A951B',
+    borderRadius: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 40,
+    minWidth: 120,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
   },
   modalButtonText: {
-    color: colors.white,
+    color: '#fff',
+    fontSize: 16,
     fontWeight: 'bold',
-    fontSize: 16,
-  },
-    passwordContainer: {
-    position: 'relative',
-    marginBottom: spacing.md,
-  },
-    passwordInput: {
-    borderWidth: 1,
-    borderColor: colors.border,
-    padding: spacing.md,
-    borderRadius: 8,
-    fontSize: 16,
-    color: colors.textPrimary,
-    paddingRight: 50, // Espacio para el icono
-  },
-    eyeIcon: {
-    position: 'absolute',
-    right: 15,
-    top: 12,
-    padding: 4,
+    textAlign: 'center',
   },
 });
