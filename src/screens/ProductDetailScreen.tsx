@@ -5,127 +5,128 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import { productDetailStyles } from '../styles/screens/ProductDetailsScreen.styles';
+import { Ionicons } from '@expo/vector-icons';
 
 type ProductDetailScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ProductDetail'>;
 
-// Datos de productos (mismos que en HomeScreen)
+// Datos de productos - FRUTAS Y VERDURAS
 const productsData = [
   {
     id: '1',
-    name: 'Netflix Premium',
-    duration: '1 mes',
-    price: 9.99,
-    category: 'streaming',
-    image: 'https://cdn-icons-png.flaticon.com/512/5977/5977590.png',
-    description: 'Cuenta premium con 4 pantallas simultáneas'
+    name: 'Manzana Roja',
+    duration: 'Fresca por 2 semanas',
+    price: 20,
+    category: 'frutas',
+    image: 'https://cdn-icons-png.flaticon.com/512/415/415682.png',
+    description: 'Manzanas rojas frescas de temporada'
   },
   {
     id: '2',
-    name: 'Spotify Premium',
-    duration: '3 meses',
-    price: 12.99,
-    category: 'musica',
-    image: 'https://cdn-icons-png.flaticon.com/512/2111/2111624.png',
-    description: 'Música sin anuncios y descarga offline'
+    name: 'Plátano',
+    duration: 'Fresco por 1 semana',
+    price: 20,
+    category: 'frutas',
+    image: 'https://cdn-icons-png.flaticon.com/512/2909/2909761.png',
+    description: 'Plátanos maduros naturales'
   },
   {
     id: '3',
-    name: 'Disney Plus',
-    duration: '2 meses',
-    price: 8.99,
-    category: 'streaming',
-    image: 'https://cdn-icons-png.flaticon.com/512/5977/5977610.png',
-    description: 'Todo el contenido de Disney, Marvel, Star Wars y más'
+    name: 'Naranja',
+    duration: 'Fresca por 3 semanas',
+    price: 20,
+    category: 'frutas',
+    image: 'https://cdn-icons-png.flaticon.com/512/3076/3076041.png',
+    description: 'Naranjas jugosas de Valencia'
   },
   {
     id: '4',
-    name: 'HBO Max',
-    duration: '1 mes',
-    price: 7.99,
-    category: 'streaming',
-    image: 'https://cdn-icons-png.flaticon.com/512/5977/5977590.png',
-    description: 'Series exclusivas y películas de estreno'
+    name: 'Zanahoria',
+    duration: 'Fresca por 1 mes',
+    price: 20,
+    category: 'verduras',
+    image: 'https://cdn-icons-png.flaticon.com/512/2484/2484769.png',
+    description: 'Zanahorias orgánicas frescas'
   },
   {
     id: '5',
-    name: 'Crunchyroll Premium',
-    duration: '6 meses',
-    price: 19.99,
-    category: 'anime',
-    image: 'https://cdn-icons-png.flaticon.com/512/2504/2504940.png',
-    description: 'Anime sin anuncios y simulcasts exclusivos'
+    name: 'Tomate',
+    duration: 'Fresco por 2 semanas',
+    price: 20,
+    category: 'verduras',
+    image: 'https://cdn-icons-png.flaticon.com/512/1997/1997927.png',
+    description: 'Tomates de huerta madurados al sol'
   },
   {
     id: '6',
-    name: 'Funimation Premium',
-    duration: '3 meses',
-    price: 14.99,
-    category: 'anime',
-    image: 'https://cdn-icons-png.flaticon.com/512/2504/2504940.png',
-    description: 'Anime doblado y subtitulado de alta calidad'
+    name: 'Lechuga',
+    duration: 'Fresca por 1 semana',
+    price: 20,
+    category: 'verduras',
+    image: 'https://cdn-icons-png.flaticon.com/512/1998/1998742.png',
+    description: 'Lechuga iceberg crujiente'
   },
   {
     id: '7',
-    name: 'VIX Premium',
-    duration: '1 mes',
-    price: 5.99,
-    category: 'novelas',
-    image: 'https://cdn-icons-png.flaticon.com/512/2504/2504919.png',
-    description: 'Telenovelas y series exclusivas en español'
+    name: 'Fresa',
+    duration: 'Fresca por 5 días',
+    price: 20,
+    category: 'frutas',
+    image: 'https://cdn-icons-png.flaticon.com/512/1998/1998614.png',
+    description: 'Fresas dulces de temporada'
   },
   {
     id: '8',
-    name: 'Blim Premium',
-    duration: '2 meses',
-    price: 6.99,
-    category: 'novelas',
-    image: 'https://cdn-icons-png.flaticon.com/512/2504/2504919.png',
-    description: 'Contenido Televisa: novelas y programas exclusivos'
+    name: 'Brócoli',
+    duration: 'Fresco por 2 semanas',
+    price: 20,
+    category: 'verduras',
+    image: 'https://cdn-icons-png.flaticon.com/512/1998/1998730.png',
+    description: 'Brócoli fresco rico en nutrientes'
   },
   {
     id: '9',
-    name: 'Amazon Prime Video',
-    duration: '3 meses',
-    price: 14.99,
-    category: 'streaming',
-    image: 'https://cdn-icons-png.flaticon.com/512/5977/5977590.png',
-    description: 'Series originales y envíos gratis en Amazon'
+    name: 'Uvas',
+    duration: 'Frescas por 1 semana',
+    price: 20,
+    category: 'frutas',
+    image: 'https://cdn-icons-png.flaticon.com/512/1998/1998570.png',
+    description: 'Uvas rojas sin semillas'
   },
   {
     id: '10',
-    name: 'Apple Music',
-    duration: '2 meses',
-    price: 10.99,
-    category: 'musica',
-    image: 'https://cdn-icons-png.flaticon.com/512/2111/2111624.png',
-    description: 'Catálogo musical completo y exclusivas'
+    name: 'Pimiento',
+    duration: 'Fresco por 2 semanas',
+    price: 20,
+    category: 'verduras',
+    image: 'https://cdn-icons-png.flaticon.com/512/1998/1998750.png',
+    description: 'Pimientos rojos dulces'
   },
   {
     id: '11',
-    name: 'HIDIVE Anime',
-    duration: '1 mes',
-    price: 4.99,
-    category: 'anime',
-    image: 'https://cdn-icons-png.flaticon.com/512/2504/2504940.png',
-    description: 'Anime clásico y contenido exclusivo'
+    name: 'Mango',
+    duration: 'Fresco por 1 semana',
+    price: 20,
+    category: 'frutas',
+    image: 'https://cdn-icons-png.flaticon.com/512/2909/2909778.png',
+    description: 'Mangos maduros tropicales'
   },
   {
     id: '12',
-    name: 'Paramount+',
-    duration: '2 meses',
-    price: 9.99,
-    category: 'streaming',
-    image: 'https://cdn-icons-png.flaticon.com/512/5977/5977590.png',
-    description: 'Contenido de Nickelodeon, MTV y Comedy Central'
+    name: 'Cebolla',
+    duration: 'Fresca por 1 mes',
+    price: 20,
+    category: 'verduras',
+    image: 'https://cdn-icons-png.flaticon.com/512/2484/2484730.png',
+    description: 'Cebollas blancas para cocinar'
   }
 ];
 
-// Opciones de duración disponibles
-const durationOptions = [
-  { id: '1', label: '1 mes', price: 9.99 },
-  { id: '3', label: '3 meses', price: 24.99, discount: '10%' },
-  { id: '6', label: '6 meses', price: 44.99, discount: '20%' },
-  { id: '12', label: '12 meses', price: 79.99, discount: '30%' },
+// Opciones de cantidad disponibles
+const quantityOptions = [
+  { id: '1', label: '1 kg', price: 20 },
+  { id: '2', label: '2 kg', price: 38, discount: '5%' },
+  { id: '3', label: '5 kg', price: 90, discount: '10%' },
+  { id: '4', label: '10 kg', price: 170, discount: '15%' },
 ];
 
 const ProductDetailScreen = () => {
@@ -133,7 +134,8 @@ const ProductDetailScreen = () => {
   const route = useRoute();
   const { productId } = route.params as { productId: string };
   
-  const [selectedDuration, setSelectedDuration] = useState(durationOptions[0].id);
+  const [selectedQuantity, setSelectedQuantity] = useState(quantityOptions[0].id);
+  const [quantity, setQuantity] = useState(1);
   
   // Buscar el producto por ID
   const product = productsData.find(p => p.id === productId);
@@ -146,101 +148,219 @@ const ProductDetailScreen = () => {
     );
   }
   
-  const selectedDurationOption = durationOptions.find(opt => opt.id === selectedDuration);
+  const selectedQuantityOption = quantityOptions.find(opt => opt.id === selectedQuantity);
+  const totalPrice = selectedQuantityOption ? selectedQuantityOption.price * quantity : 0;
   
   const handleAddToCart = () => {
     console.log('Añadir al carrito:', {
       product: product.name,
-      duration: selectedDurationOption?.label,
-      price: selectedDurationOption?.price
+      quantity: `${quantity} ${selectedQuantityOption?.label}`,
+      price: totalPrice
     });
   };
   
   const handleBuyNow = () => {
     console.log('Comprar ahora:', {
       product: product.name,
-      duration: selectedDurationOption?.label,
-      price: selectedDurationOption?.price
+      quantity: `${quantity} ${selectedQuantityOption?.label}`,
+      price: totalPrice
     });
+  };
+
+  const handleIncreaseQuantity = () => {
+    setQuantity(prev => prev + 1);
+  };
+
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1);
+    }
   };
 
   return (
     <ScrollView style={productDetailStyles.container}>
-      {/* Imagen del producto */}
+      {/* Header con botón de volver */}
+      <View style={productDetailStyles.header}>
+
+        <Text style={productDetailStyles.headerTitle}>Detalles del Producto</Text>
+        <TouchableOpacity style={productDetailStyles.wishlistButton}>
+          <Ionicons name="heart-outline" size={24} color="#333" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Imagen del producto con etiqueta de categoría */}
       <View style={productDetailStyles.imageContainer}>
+        <View style={productDetailStyles.categoryBadge}>
+          <Text style={productDetailStyles.categoryText}>{product.category.toUpperCase()}</Text>
+        </View>
         <Image 
           source={{ uri: product.image }} 
           style={productDetailStyles.productImage}
           resizeMode="contain"
         />
+        <View style={productDetailStyles.imageIndicators}>
+          <View style={productDetailStyles.indicatorActive} />
+          <View style={productDetailStyles.indicator} />
+          <View style={productDetailStyles.indicator} />
+          <View style={productDetailStyles.indicator} />
+        </View>
       </View>
       
       {/* Información del producto */}
       <View style={productDetailStyles.infoContainer}>
-        <Text style={productDetailStyles.productName}>{product.name}</Text>
-        
-        {/* Selección de duración */}
-        <Text style={productDetailStyles.sectionTitle}>Selecciona la duración:</Text>
-        <View style={productDetailStyles.durationOptions}>
-          {durationOptions.map(option => (
+        <View style={productDetailStyles.titleRow}>
+          <Text style={productDetailStyles.productName}>{product.name}</Text>
+          <View style={productDetailStyles.ratingContainer}>
+            <Ionicons name="star" size={16} color="#FFD700" />
+            <Text style={productDetailStyles.ratingText}>4.8</Text>
+            <Text style={productDetailStyles.reviewsText}>(128 reseñas)</Text>
+          </View>
+        </View>
+
+        {/* Duración de frescura */}
+        <View style={productDetailStyles.freshnessContainer}>
+          <Ionicons name="time-outline" size={20} color="#82B421" />
+          <Text style={productDetailStyles.freshnessText}>{product.duration}</Text>
+          <View style={productDetailStyles.organicBadge}>
+            <Ionicons name="leaf-outline" size={16} color="#fff" />
+            <Text style={productDetailStyles.organicText}>ORGÁNICO</Text>
+          </View>
+        </View>
+
+        {/* Precio */}
+        <View style={productDetailStyles.priceContainer}>
+          <Text style={productDetailStyles.currentPrice}>${totalPrice.toFixed(2)}</Text>
+          {selectedQuantityOption?.discount && (
+            <View style={productDetailStyles.discountContainer}>
+              <Text style={productDetailStyles.originalPrice}>
+                ${(selectedQuantityOption.price / (1 - parseInt(selectedQuantityOption.discount) / 100)).toFixed(2)}
+              </Text>
+              <View style={productDetailStyles.discountTag}>
+                <Text style={productDetailStyles.discountText}>{selectedQuantityOption.discount} OFF</Text>
+              </View>
+            </View>
+          )}
+        </View>
+
+        {/* Selección de cantidad */}
+        <Text style={productDetailStyles.sectionTitle}>Selecciona la cantidad:</Text>
+        <View style={productDetailStyles.quantityOptions}>
+          {quantityOptions.map(option => (
             <TouchableOpacity
               key={option.id}
               style={[
-                productDetailStyles.durationOption,
-                selectedDuration === option.id && productDetailStyles.durationOptionSelected
+                productDetailStyles.quantityOption,
+                selectedQuantity === option.id && productDetailStyles.quantityOptionSelected
               ]}
-              onPress={() => setSelectedDuration(option.id)}
+              onPress={() => setSelectedQuantity(option.id)}
             >
               <Text style={[
-                productDetailStyles.durationLabel,
-                selectedDuration === option.id && productDetailStyles.durationLabelSelected
+                productDetailStyles.quantityLabel,
+                selectedQuantity === option.id && productDetailStyles.quantityLabelSelected
               ]}>
                 {option.label}
               </Text>
-              <Text style={productDetailStyles.durationPrice}>${option.price}</Text>
+              <Text style={productDetailStyles.quantityPrice}>${option.price}</Text>
               {option.discount && (
-                <Text style={productDetailStyles.discountBadge}>{option.discount} descuento</Text>
+                <Text style={productDetailStyles.discountBadge}>Ahorra {option.discount}</Text>
               )}
             </TouchableOpacity>
           ))}
         </View>
-        
-        {/* Precio total */}
-        <View style={productDetailStyles.totalContainer}>
-          <Text style={productDetailStyles.totalLabel}>Precio total:</Text>
-          <Text style={productDetailStyles.totalPrice}>${selectedDurationOption?.price}</Text>
+
+        {/* Selector de cantidad */}
+        <View style={productDetailStyles.quantitySelector}>
+          <Text style={productDetailStyles.quantityTitle}>Cantidad:</Text>
+          <View style={productDetailStyles.counterContainer}>
+            <TouchableOpacity 
+              style={productDetailStyles.counterButton}
+              onPress={handleDecreaseQuantity}
+            >
+              <Ionicons name="remove" size={20} color="#333" />
+            </TouchableOpacity>
+            <Text style={productDetailStyles.counterValue}>{quantity}</Text>
+            <TouchableOpacity 
+              style={productDetailStyles.counterButton}
+              onPress={handleIncreaseQuantity}
+            >
+              <Ionicons name="add" size={20} color="#333" />
+            </TouchableOpacity>
+          </View>
         </View>
-        
+
         {/* Descripción del producto */}
         <View style={productDetailStyles.descriptionContainer}>
-          <Text style={productDetailStyles.descriptionTitle}>Descripción:</Text>
+          <Text style={productDetailStyles.descriptionTitle}>Descripción</Text>
           <Text style={productDetailStyles.productDescription}>{product.description}</Text>
         </View>
         
-        {/* Información adicional */}
-        <View style={productDetailStyles.additionalInfo}>
-          <Text style={productDetailStyles.infoTitle}>¿Qué incluye?</Text>
-          <Text style={productDetailStyles.infoText}>• Acceso completo a todos los contenidos</Text>
-          <Text style={productDetailStyles.infoText}>• Calidad HD/4K (dependiendo del plan)</Text>
-          <Text style={productDetailStyles.infoText}>• Soporte técnico 24/7</Text>
-          <Text style={productDetailStyles.infoText}>• Garantía de reembolso de 7 días</Text>
+        {/* Características del producto */}
+        <View style={productDetailStyles.featuresContainer}>
+          <Text style={productDetailStyles.featuresTitle}>Características:</Text>
+          <View style={productDetailStyles.featureItem}>
+            <Ionicons name="checkmark-circle" size={20} color="#82B421" />
+            <Text style={productDetailStyles.featureText}>Producto 100% orgánico</Text>
+          </View>
+          <View style={productDetailStyles.featureItem}>
+            <Ionicons name="checkmark-circle" size={20} color="#82B421" />
+            <Text style={productDetailStyles.featureText}>Libre de pesticidas</Text>
+          </View>
+          <View style={productDetailStyles.featureItem}>
+            <Ionicons name="checkmark-circle" size={20} color="#82B421" />
+            <Text style={productDetailStyles.featureText}>Recolección diaria</Text>
+          </View>
+          <View style={productDetailStyles.featureItem}>
+            <Ionicons name="checkmark-circle" size={20} color="#82B421" />
+            <Text style={productDetailStyles.featureText}>Entrega en 24 horas</Text>
+          </View>
         </View>
-        
-        {/* Botones de acción - EN COLUMNA */}
-        <View style={productDetailStyles.actionsContainer}>
-          <TouchableOpacity 
-            style={[productDetailStyles.actionButton, productDetailStyles.buyNowButton]}
-            onPress={handleBuyNow}
-          >
-            <Text style={productDetailStyles.actionButtonText}>Comprar ahora</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={[productDetailStyles.actionButton, productDetailStyles.addToCartButton]}
-            onPress={handleAddToCart}
-          >
-            <Text style={productDetailStyles.actionButtonText}>Añadir al carrito</Text>
-          </TouchableOpacity>
+
+        {/* Información nutricional */}
+        <View style={productDetailStyles.nutritionContainer}>
+          <Text style={productDetailStyles.nutritionTitle}>Información Nutricional (por 100g)</Text>
+          <View style={productDetailStyles.nutritionGrid}>
+            <View style={productDetailStyles.nutritionItem}>
+              <Text style={productDetailStyles.nutritionValue}>52 kcal</Text>
+              <Text style={productDetailStyles.nutritionLabel}>Calorías</Text>
+            </View>
+            <View style={productDetailStyles.nutritionItem}>
+              <Text style={productDetailStyles.nutritionValue}>14g</Text>
+              <Text style={productDetailStyles.nutritionLabel}>Carbohidratos</Text>
+            </View>
+            <View style={productDetailStyles.nutritionItem}>
+              <Text style={productDetailStyles.nutritionValue}>0.3g</Text>
+              <Text style={productDetailStyles.nutritionLabel}>Grasas</Text>
+            </View>
+            <View style={productDetailStyles.nutritionItem}>
+              <Text style={productDetailStyles.nutritionValue}>0.3g</Text>
+              <Text style={productDetailStyles.nutritionLabel}>Proteínas</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Botones de acción fijos en la parte inferior */}
+        <View style={productDetailStyles.bottomActions}>
+          <View style={productDetailStyles.totalPriceContainer}>
+            <Text style={productDetailStyles.totalLabel}>Total:</Text>
+            <Text style={productDetailStyles.totalPrice}>${totalPrice.toFixed(2)}</Text>
+          </View>
+          <View style={productDetailStyles.actionButtons}>
+            <TouchableOpacity 
+              style={[productDetailStyles.actionButton, productDetailStyles.addToCartButton]}
+              onPress={handleAddToCart}
+            >
+              <Ionicons name="cart-outline" size={22} color="#fff" />
+              <Text style={productDetailStyles.actionButtonText}>Añadir</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              style={[productDetailStyles.actionButton, productDetailStyles.buyNowButton]}
+              onPress={handleBuyNow}
+            >
+              <Ionicons name="bag-check-outline" size={22} color="#fff" />
+              <Text style={productDetailStyles.actionButtonText}>Comprar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </ScrollView>

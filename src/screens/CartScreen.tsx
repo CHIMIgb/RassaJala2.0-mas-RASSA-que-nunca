@@ -25,27 +25,27 @@ const CartScreen = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([
     {
       id: '1',
-      name: 'Netflix Premium',
-      duration: '3 meses',
-      price: 24.99,
-      image: 'https://cdn-icons-png.flaticon.com/512/5977/5977590.png',
-      quantity: 1
+      name: 'Manzana Roja',
+      duration: 'Fresca por 2 semanas',
+      price: 20,
+      image: 'https://cdn-icons-png.flaticon.com/512/415/415682.png',
+      quantity: 2
     },
     {
       id: '2',
-      name: 'Spotify Premium',
-      duration: '6 meses',
-      price: 44.99,
-      image: 'https://cdn-icons-png.flaticon.com/512/2111/2111624.png',
-      quantity: 1
+      name: 'Zanahoria Orgánica',
+      duration: 'Fresca por 1 mes',
+      price: 15,
+      image: 'https://cdn-icons-png.flaticon.com/512/2484/2484769.png',
+      quantity: 3
     },
     {
       id: '3',
-      name: 'Disney Plus',
-      duration: '1 mes',
-      price: 8.99,
-      image: 'https://cdn-icons-png.flaticon.com/512/5977/5977610.png',
-      quantity: 2
+      name: 'Tomate de Huerta',
+      duration: 'Fresco por 2 semanas',
+      price: 18,
+      image: 'https://cdn-icons-png.flaticon.com/512/1997/1997927.png',
+      quantity: 1
     }
   ]);
 
@@ -95,7 +95,7 @@ const CartScreen = () => {
       <ScrollView style={cartStyles.scrollContainer}>
         {/* Header del Carrito */}
         <View style={cartStyles.cartHeader}>
-          <Text style={cartStyles.cartTitle}>Carrito de Compras</Text>
+          <Text style={cartStyles.cartTitle}>Carrito de Apartados</Text>
           <Text style={cartStyles.itemsCount}>{cartItems.length} productos</Text>
         </View>
 
@@ -130,7 +130,7 @@ const CartScreen = () => {
                   </TouchableOpacity>
                   
                   <View style={cartStyles.quantityDisplay}>
-                    <Text style={cartStyles.quantityText}>{item.quantity}</Text>
+                    <Text style={cartStyles.quantityText}>{item.quantity} kg</Text>
                   </View>
                   
                   <TouchableOpacity 
@@ -187,7 +187,7 @@ const CartScreen = () => {
           style={[cartStyles.actionButton, cartStyles.checkoutButton]}
           onPress={handleCheckout}
         >
-          <Text style={cartStyles.checkoutButtonText}>Proceder al pago</Text>
+          <Text style={cartStyles.checkoutButtonText}>Proceder a apartar pedido</Text>
         </TouchableOpacity>
       </View>
 
