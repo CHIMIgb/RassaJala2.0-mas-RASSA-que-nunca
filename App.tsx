@@ -21,16 +21,16 @@ import AdminNavbar from './src/components/common/AdminNavbar';
 import ProfileScreen from './src/screens/ProfileScreen';
 import ProfileAdminScreen from './src/screens/admin/ProfileAdminScreen';
 import ActiveCodeScreen from './src/screens/ActiveCodeScreen';
-import ResetPasswordScreen from './src/screens/ResetPasswordScreen'; // Asegúrate de importar esta
+import ResetPasswordScreen from './src/screens/ResetPasswordScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-// --- Configuración del Deep Link (la tenías correcta) ---
+// --- Configuración del Deep Link) ---
 const linking = {
   prefixes: [
     'mirugo://', 
     'http://app.rassajala.com', 
-    'http://192.168.0.104:8081' // El prefijo de tu link de prueba
+    'http://192.168.0.104:8081'
   ],
   config: {
     screens: {

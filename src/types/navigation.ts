@@ -11,7 +11,5 @@ export type RootStackParamList = {
   AdminPanel: undefined;
   AuthRedirect: undefined;
   ActiveCodeScreen: undefined;
-  // Pantalla para recuperar la contraseña
-  // Esta pantalla espera un 'token' que viene del deep link
   ResetPassword: { token: string };
 };
